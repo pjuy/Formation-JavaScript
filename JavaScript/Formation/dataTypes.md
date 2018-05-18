@@ -16,16 +16,42 @@ A primitive data is a data which is not an object and which have no method.
 
 All existing JavaScript values will have one of thee data types.
 
-## text
+## Typeof
+To detect the type of a value, you can use the typeof method. But here again we have exceptions and need to be careful.
 
-## number
+```javascript
+//Exemples
+typeof 5; //return "number"
 
-## array
+var number = 5;
+typeof number; //return "number"
 
-## object
+var text = "5";
+typeof text; //return "string"
 
-## function
+var functionName = function(){};
+typeof functionName; //return "function"
+typeof Array; //return "function"
+typeof Map; //return "function"
 
-## null
+//Exceptions
+var dataNull = null;
+typeof dataNull; //return "object"
+typeof object; //return "object" too
+//solution to test an object :
+//Object(x) === x > return true only for objects;
+var dataObject = {};
+var dataNull = null;
+Object(dataObject) === dataObject; //return true
+Object(dataNull) === dataNull; //return false
+//solution to test null :
+var dataNull = null;
+dataNull === null; //return true
 
-## undefined
+typeof NaN; //return "number"
+//solution to test if NaN :
+var notNumber = NaN;
+Number.isNan(notNumber); //return true
+```
+
+[typeof list](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Op%C3%A9rateurs/L_op%C3%A9rateur_typeof)
