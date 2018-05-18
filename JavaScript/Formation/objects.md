@@ -82,7 +82,7 @@ object = {
 
 
 ## class
-class = contructor.
+class = contructor ?
 
 ## class
 let newOjbect = Object.create(object);
