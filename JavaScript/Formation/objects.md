@@ -3,7 +3,7 @@ const object = {
 	key: value
 };
 
-## properties
+## manage properties
 const object = {
     property1: 1,
     property2: "2nd propery"
@@ -25,7 +25,7 @@ object = {
 };
 */
 
-## methods
+## manage methods
 object.property3.method = function(){
 	return 3;
 }
@@ -64,6 +64,7 @@ console.log(object["property2"]); // "2nd property"
 console.log(object.property3.method); // "function method()"
 console.log( object.property3.method() ); // 3
 console.log(Object.keys(object)); // ["property1","property2","property3","property4"]
+console.log(Object.entries(object)); // [["property1","1"],["property2","2nd property"],["property3","{prop:["1","2","3"],method:function(){return 3;}}"],["property4","true"]];
 
 delete object.property4;
 console.log(object);
@@ -84,9 +85,13 @@ object = {
 ## class
 class = contructor ?
 
-## class
+## prototypes
+A prototype is the object from which an object is created.
+
 let newOjbect = Object.create(object);
-newObject is a prototype and will always inherit all properties from object.
+object is the prototype of newObject.
+newObject and will always inherit all properties & methods from object.
+
 console.log(newOjbect);
 /*
 __proto__ :
@@ -120,3 +125,5 @@ newObject = {
 */
 
 ## scope
+object.property6 = this;
+console.log(object.property6); // window
