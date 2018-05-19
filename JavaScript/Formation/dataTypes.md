@@ -23,34 +23,34 @@ To detect the type of a value, you can use the typeof method. But here again we 
 //Exemples
 typeof 5; //return "number"
 
-var number = 5;
+let number = 5;
 typeof number; //return "number"
 
-var text = "5";
+let text = "5";
 typeof text; //return "string"
 
-var functionName = function(){};
+let functionName = function(){};
 typeof functionName; //return "function"
 typeof Array; //return "function"
 typeof Map; //return "function"
 
 //Exceptions
-var dataNull = null;
+let dataNull = null;
 typeof dataNull; //return "object"
 typeof object; //return "object" too
 //solution to test an object :
 //Object(x) === x > return true only for objects;
-var dataObject = {};
-var dataNull = null;
+let dataObject = {};
+let dataNull = null;
 Object(dataObject) === dataObject; //return true
 Object(dataNull) === dataNull; //return false
 //solution to test null :
-var dataNull = null;
+let dataNull = null;
 dataNull === null; //return true
 
 typeof NaN; //return "number"
 //solution to test if NaN :
-var notNumber = NaN;
+let notNumber = NaN;
 Number.isNan(notNumber); //return true
 ```
 
