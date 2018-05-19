@@ -1,6 +1,10 @@
 # Objects
+JavaScript is object-based.
+Object = Collection of properties (key : value) and methods (functions).
+
 const object = {
-	key: value
+	key: value, //property
+	function: function(){} //method
 };
 
 ## manage properties
@@ -12,7 +16,7 @@ const object = {
 console.log(object);
 
 object.property3 = {
-        prop: ["1","2","3"]
+	prop: ["1","2","3"]
 }
 console.log(object);
 /*
@@ -24,6 +28,21 @@ object = {
 	}
 };
 */
+
+loop on object properties
+var result = '';
+for (var prop in object) {
+	if (object.hasOwnProperty(prop)) {
+		result += prop + ":" + object[prop] + '\n';
+	}
+}
+console.log(result);
+/*
+property1:1
+property2:2nd property
+property3:["1","2","3"]
+*/
+
 
 ## manage methods
 object.property3.method = function(){
@@ -81,10 +100,6 @@ object = {
 };
 */
 
-
-## class
-class = contructor ?
-
 ## prototypes
 A prototype is the object from which an object is created.
 
@@ -124,6 +139,50 @@ newObject = {
 };
 */
 
-## scope
-object.property6 = this;
-console.log(object.property6); // window
+## create new objects
+Constructor = Class.
+Start with a caps.
+
+### with functions
+No need to instanciate properties.
+Easy to create new objects.
+Need to use 'prototype' to add properties inherited by oject instances.
+const Character = function(attack,defense,life,type,faction){
+	this.attack = attack;
+	this.defense = defense;
+	this.life = life;
+	this.type = type;
+	this.faction = faction;
+};
+let heroe = new Character(1, 2, 5, "warrior","heroes");
+let monster = new Character(2, 1, 2, "monster","ennemies");
+
+Character.name = "unknown";
+console.log(heroe.name); //undefined
+
+Character.prototype.name = "unknown";
+console.log(heroe.name); //unknown
+
+### with objects
+Automatically inherit new properties added to the object
+const Character = {
+	attack : 1,
+	defense : 0,
+	life : 1,
+	type : undefined,
+	faction: 'unknown'
+};
+
+let heroe = Object.create(Character);
+heroe.attack = 1;
+heroe.defense = 2;
+heroe.life = 5;
+heroe.type = "warrior";
+heroe.faction = "heroes";
+
+let monster = Object.create(Character);
+heroe.attack = 2;
+heroe.defense = 1;
+heroe.life = 2;
+heroe.type = "monster";
+heroe.faction = "ennemies";
