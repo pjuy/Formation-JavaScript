@@ -1,6 +1,11 @@
 # Handle errors
 
 ## if
+if(condition){
+
+}
+'If' test if the parentheses conditions are true or false.
+Will not show silent errors.
 
 ## try/catch
 try{
