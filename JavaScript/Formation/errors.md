@@ -17,6 +17,15 @@ try{
 If an error occured in the 'try' section, it will be throw in the 'catch' section.
 Only the first error will be displayed.
 
+### finally
+try{
+	//your code
+}catch(error){
+	console.log(error.message);
+}finally{
+	//code to execute even if errors happened
+}
+
 ### nested
 If we imbricate try...catch, errors are not autmatically throw from one to another.
 
