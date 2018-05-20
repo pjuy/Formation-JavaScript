@@ -48,23 +48,27 @@ superHero = "JavaScript Man";
 How to return both "SuperMan" and "JavaScript Man" after 1s ?
 
 ## this
-Be careful when using 'this' inside a function. Each function has its own 'this'.
 ```javascript
-//Don't
-function test(){
-	this.attribute = 0; //'this' refer to test()
-	setTimeout(function test2(){
-		this.attribute++; //'this' refer to test2() and attribute doesn't exists
-	},100);
-}
+"use strict";
+let objectGlobalScope = {
+	a: this,
+	bScope: {
+		c: this,
+		bFunctionScope: function(){
+			return this;
+		},
+		dScope: {
+			e: this,
+			dFunctionScope: function(){
+				return this;
+			}
+		}
+	}
+};
 
-//Do
-function test(){
-	var thisContext = this;
-	thisContext.attribute = 0;
-	setTimeout(function test2(){
-		//thisContext is what you expect
-		thisContext.attribute++;
-	},100);
-}
+console.log(objectGlobalScope.a); //return window
+console.log(objectGlobalScope.bScope.c); //return window
+console.log(objectGlobalScope.bScope.bFunctionScope()); //return bScope object
+console.log(objectGlobalScope.bScope.dScope.e); //return window
+console.log(objectGlobalScope.bScope.dScope.dFunctionScope()); //return dScope object
 ```
