@@ -17,6 +17,9 @@ let scopeOutside = function(){
 }
 scopeOutside();
 
+### Exercices
+How to pass the insideVariable in the outside Scope ?
+
 ## variables
 let superHero = "SuperMan"; //variable global
 let callHelp = function(heroName){
@@ -41,6 +44,8 @@ setTimeout(function(){
 
 superHero = "JavaScript Man";
 
+### Exercices
+How to return both "SuperMan" and "JavaScript Man" after 1s ?
 
 ## this
 Be careful when using 'this' inside a function. Each function has its own 'this'.
