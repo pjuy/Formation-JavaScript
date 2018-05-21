@@ -30,6 +30,15 @@ Afin de *Construire des pages dynamiquement*
 - Formalisme (Structure du DOM)
 - Cas d'utilisation (Créer des constructeurs, Construire la page en JavaScript)
 
+### Maîtriser les algorithmes
+En tant que *Dev Front End*,
+Je veux *comprendre les algorithmes*
+Afin de *Développer des applications complexes*
+
+**Critères d'acceptation :**
+- Formalisme (Structure des algorithmes)
+- Cas d'utilisation (Gérer les différents résultats d'un jeu)
+
 ### Programmation Evénementielle
 En tant que *Dev Front End*,
 Je veux *Gérer les événements*
