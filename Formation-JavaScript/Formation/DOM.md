@@ -1,6 +1,7 @@
 # DOM
 
 ## selectors
+```javascript
 let elementUnique = document.getElementById("elementHTMLid"); //unique HTML element on which we can directly act
 
 let elementsHTMLtag = document.getElementsByTagName("span"); //array of all HTML specified tags. Need a for...loop, forEach or [index] to act on the element
@@ -10,9 +11,10 @@ let elementsClass = document.getElementsByClassName("elementsHTMLclass"); //arra
 let elementCSSunique = document.querySelector(#sectionid); //unique HTML elements targeted like in CSS
 
 let elementsCSS = document.querySelectorAll(div.className a); //Array of links inside the div class="className" target like in CSS.Need a for...loop, forEach or [index] to act on the elements
+```
 
 ## naviagte in the DOM
-
+```javascript
 let parentElement = document.getElementById("#parent");
 
 parentElement.children; //will return an array with all children elements (not the text nodes)
@@ -22,6 +24,7 @@ parentElement.childNodes; //will return an array with all children NODES (INCLUD
 let childElement = document.getElementById("elementId");
 
 childElement.parentNode; //will go up 1 lvl in the DOM
+```
 
 ## create elements
 Follow these steps :
@@ -30,10 +33,11 @@ Follow these steps :
 - define the new element properties
 - insert the new elements inside the parent
 
-To create an new HTML element, use document.createElement("htmltag");
+To create a new HTML element, use document.createElement("htmltag");
 To specify HTML attributes, use element.setAttribute("attribute", "value");
 To insert the elements, use parent.appendChild(child);
 
+```javascript
 //Define parent
 const parentElement = document.getElementById("menuParent");
 //Create new list element
@@ -45,6 +49,7 @@ children1.setAttribute("id", "menuElement1");
 children1.setAttribute("class", "menu-element"); //add attributes
 //Insert new element inside parent
 parentElement.appendChild(children1);
+```
 
 Le résultat sera :
 <ul id="menuParent">
@@ -54,6 +59,8 @@ Le résultat sera :
 </ul>
 
 ## attributes
+```javascript
 element.setAttribute("id", "menuElement1");
 element.getAttribute("id"); //return "menuElement1"
 element.removeAttribute("id"); //will delete the attribute
+```
