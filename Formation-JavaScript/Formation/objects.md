@@ -196,9 +196,9 @@ heroe.type = "warrior";
 heroe.faction = "heroes";
 
 let monster = Object.create(Character);
-heroe.attack = 2;
-heroe.defense = 1;
-heroe.life = 2;
-heroe.type = "monster";
-heroe.faction = "ennemies";
+monster.attack = 2;
+monster.defense = 1;
+monster.life = 2;
+monster.type = "monster";
+monster.faction = "ennemies";
 ```
