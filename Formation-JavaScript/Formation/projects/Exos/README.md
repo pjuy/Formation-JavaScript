@@ -23,7 +23,7 @@ for (let key in object) {
 ## array
 ```javascript
 let array = [];
-for (a=0; a<array.length; a++) {
+for (let a=0; a<array.length; a++) {
 	console.log(array[a]);
 }
 ```
