@@ -7,6 +7,8 @@ const object = {
 	key: value, //property
 	function: function(){} //method
 };
+object.key; //return key value
+object.function(); //will call the method. Return method result.
 ```
 
 ## manage properties
