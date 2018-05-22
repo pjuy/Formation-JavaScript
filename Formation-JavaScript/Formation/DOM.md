@@ -8,9 +8,9 @@ let elementsHTMLtag = document.getElementsByTagName("span"); //array of all HTML
 
 let elementsClass = document.getElementsByClassName("elementsHTMLclass"); //array of all HTML elements which gets this class. Need a for...loop, forEach or [index] to act on the element
 
-let elementCSSunique = document.querySelector(#sectionid); //unique HTML elements targeted like in CSS
+let elementCSSunique = document.querySelector("#sectionid"); //unique HTML elements targeted like in CSS
 
-let elementsCSS = document.querySelectorAll(div.className a); //Array of links inside the div class="className" target like in CSS.Need a for...loop, forEach or [index] to act on the elements
+let elementsCSS = document.querySelectorAll("div.className a"); //Array of links inside the div class="className" target like in CSS.Need a for...loop, forEach or [index] to act on the elements
 ```
 
 ## naviagte in the DOM
