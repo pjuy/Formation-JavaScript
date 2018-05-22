@@ -45,6 +45,7 @@ for (let a=0; a<array.length; a++) {
 - attaquer les autres membres !
 
 # generate HTML
+```javascript
 let enfant = document.createElement();
 let textEnfant = document.createTextNode();
 enfant.appendChild(textEnfant);
@@ -52,3 +53,4 @@ enfant.setAttribute("id", "");
 
 let parent = document.getElementById();
 parent.appendChild(enfant);
+```
