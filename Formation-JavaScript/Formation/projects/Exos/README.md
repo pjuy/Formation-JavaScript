@@ -43,3 +43,12 @@ for (let a=0; a<array.length; a++) {
 				> si vie <= 0 alert("DEAD !);
 - créer 1 objet par membre de l'équipe
 - attaquer les autres membres !
+
+# generate HTML
+let enfant = document.createElement();
+let textEnfant = document.createTextNode();
+enfant.appendChild(textEnfant);
+enfant.setAttribute("id", "");
+
+let parent = document.getElementById();
+parent.appendChild(enfant);
