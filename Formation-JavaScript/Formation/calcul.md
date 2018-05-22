@@ -6,11 +6,12 @@ let number 2 = 5;
 Same logic as per mathematics.
 console.log(1+10*10); //return 101
 console.log((1+10)*10); //return 110
+```
 
 ## parseFloat
 transform string into decimal.
 Only first number.
-Don't work if text first.
+Don\'t work if text first.
 
 console.log(parseFloat("10.100")); // return 10.1
 console.log(parseFloat("500 dollars")); // return 500
