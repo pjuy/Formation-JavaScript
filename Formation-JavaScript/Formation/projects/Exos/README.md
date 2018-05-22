@@ -27,3 +27,19 @@ for (let a=0; a<array.length; a++) {
 	console.log(array[a]);
 }
 ```
+
+# objects
+- créer un constructeur membreEquipe
+	> nom
+	> age
+	> attack
+	> defense
+	> life
+	> méthode attaque()
+		> passer la cible en paramètre
+		> 50% chance d'échouer
+		> si réussi
+			> si attaque > défense alors on baisse la vie
+				> si vie <= 0 alert("DEAD !);
+- créer 1 objet par membre de l'équipe
+- attaquer les autres membres !
