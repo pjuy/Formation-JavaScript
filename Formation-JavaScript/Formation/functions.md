@@ -1,34 +1,41 @@
 # Functions
+```javascript
+//best practice, useful if function return some value
 let myFunction = function(){
 	//code here...
 };
 
+//classic way, hard to retrieve returned values
 function myFunction(){
-
+	//code here...
 }
 
-### return result
+//global way, function accessible from anywhere
+window.myFunction = function(){
+	//code here...
+};
+```
 
-### 1 action, 1 function
+## 1 action, 1 function
 A function should only do one action to easily understand and update the code afterwards.
 Instead of using complex functions doing multiple tasks, create several small functions doing one task.
 ``` JavaScript
 // Don’t :
-window.calculateControleAndPasteFieldValue = function(calculField1, calculField2, pasteField){
-    //Calculate Fields
-    //code here...
+window.calculateControleAndPasteFieldValue = function(calculField1, calculField2, resultField){
+	//Controle field value
+	//code here...
 
-    //Controle field value
-    //code here...
+	//Calculate Fields
+	//code here...
 
-    //Paste calcul value
-    //code here...
+	//Paste calcul value
+	//code here...
 };
 calculateControleAndPasteFieldValue();
 
 // Do :
 window.calculateFieldValue = function(calculField1, calculField2){
-    //code here...
+	//code here...
 };
 window.controleFieldValue = function(fieldValue){
     //code here...
@@ -38,7 +45,7 @@ window.pasteFieldValue = function(fieldValue, pasteField){
 };
 ```
 
-### Errors and Controls
+## Errors and Controls
 Basically, all controls should be done inside the function and not outside.
 If something prevents the function from working properly, it should still return an error message.
 
@@ -47,9 +54,9 @@ If it is purely technical it should be transparent for the user (displayed in th
 // Exemple :
 //test if fields exists
 if(field){
-    //Do Something
+	//Do Something
 }else{
-    console.log("function name - field not found");
+	console.log("function name - field not found");
 }
 ```
 
@@ -66,50 +73,50 @@ If it is a functional issue it should warn the user with an alert.
 
 //test field value
 if(field.getValue() < 1000 ){
-    alert("field value can't be inferior than 1000");
+	alert("field value can't be inferior than 1000");
 }else{
-    //Do something
+	//Do something
 }
 ```
 
 Also make sure to use a clear message which indicates which function and which part of it failed.
 
-### Make your functions global
+## Make your functions global
 We never know when a function will be useful in other cases.
 When you create a function, make sure this function is generic and accepts arguments which make it reusable rather than creating static variables inside.
 ``` JavaScript
 // Don’t :
-window.calculateField3 = function(){
+let calculateField3 = function(){
     //declare variables
-	var field1 = neocase.form.field(‘INTERVENTIONS_EN_COURS$VALEUR1’);
-	var field2 = neocase.form.field(‘INTERVENTIONS_EN_COURS$VALEUR2’);
-	var field3 = neocase.form.field(‘INTERVENTIONS_EN_COURS$VALEUR3’);
-    if(field1.getValue() !== “” && field2.getValue() !== “”){
-        field3.setValue(field1.getValue()+field2.getValue());
+	let field1 = document.getElementById("input1");
+	let field2 = document.getElementById("input2");
+	let field3 = document.getElementById("input3");
+    if(field1.value !== “” && field2.value !== “”){
+        field3.value = field1.value+field2.value;
     }
 };
 calculateField3();
 
 // Do :
-window.calculateFields = function(fieldCalc1,fieldCalc2,fieldResult){
-    if(fieldCalc1.getValue() !== “” && fieldCalc2.getValue() !== “”){
-        fieldResult.setValue(fieldCalc1.getValue()+fieldCalc2.getValue());
+window.calculateFields = function(field1,field2,fieldResult){
+    if(fieldCalc1.value !== “” && fieldCalc2.value !== “”){
+        fieldResult.value = field1.value+field2.value;
     }
 };
-calculateFields(neocase.form.field(‘INTERVENTIONS_EN_COURS$VALEUR1’), neocase.form.field(‘INTERVENTIONS_EN_COURS$VALEUR2’), neocase.form.field(‘INTERVENTIONS_EN_COURS$VALEUR3’));
+calculateFields(document.getElementById("input1"),document.getElementById("input2"),document.getElementById("input3"));
 ```
 
-### Avoid comments
+## Avoid comments
 If you need to insert commentary, it might be that your code is not clear enough.
 So make sure your variable and functions name are logical and precise.
 ```javascript
 //Don't
 /* Function to calculate annual Salary */
-window.newFunction = function(field1,field2){
+let newFunction = function(field1,field2){
     //test if 'monthly salary' & 'number of months' exists
     if(field1 && field2){
         //calculate annual Salary
-        var result = parseFloat(field1.getValue())*parseFloat(field2.getValue());
+        var result = parseFloat(field1.value)*parseFloat(field2.value);
 
         //return annual Salary if the result is a number
         return Number.isNaN(result) ? "" : result;
@@ -117,23 +124,23 @@ window.newFunction = function(field1,field2){
 };
 
 //Do
-window.calculateAnnualSalary = function(monthlySalary,workingMonthsNumber){
+let calculateAnnualSalary = function(monthlySalary,workingMonthsNumber){
 
-    if(monthlySalary && workingMonthsNumber){
-        var annualSalary = parseFloat(monthlySalary.getValue())*parseFloat(workingMonthsNumber.getValue());
-        return Number.isNaN(total) ? "" : total;
-    }
+	if(monthlySalary && workingMonthsNumber){
+		let annualSalary = parseFloat(monthlySalary.value)*parseFloat(workingMonthsNumber.value);
+		return Number.isNaN(total) ? "" : total;
+	}
 
 };
 ```
 
-### The perfect function
+## The perfect function
 ``` JavaScript
 // Exemple :
-window.testField = function(){
+const testField = function(){
 
-	for(c=0; c<arguments.length; c++){
-		if(!arguments[c] && arguments[c].elementHMTL === null){
+	for(let a=0; a<arguments.length; a++){
+		if(!arguments[a]){
 			console.warn("field doesn't exists");
 			return false;
 		}
@@ -141,30 +148,33 @@ window.testField = function(){
 	return true;
 };
 
-window.testIfValueIsNumber = function(){
+const testIfValueIsNumber = function(){
 
-	for(b=0; b<arguments.length; b++){
+	for(let a=0; a<arguments.length; a++){
 
-		if(arguments[b].getValue() === ""){
-			console.log(arguments[b].label()+" is empty");
+		if(arguments[a].value === ""){
+			console.log("field "+arguments[a].name+" is empty");
 			return false;
-		}else if(Number.isNaN(arguments[b].getValue()) === true){
-			console.log(arguments[b].label()+" value is not a number");
-			return false;
+		}else{
+			let fieldValue = parseFloat(arguments[a].value);
+			if(Number.isNaN(fieldValue) === true){
+				console.log("field "+arguments[a].name+" value is not a number");
+				return false;
+			}
 		}
 		return true;
 	}
 
 };
 
-window.additionFields = function(){
+const additionFields = function(){
 
-	var total = 0;
+	let total = 0;
 
-	for(a=0;a<arguments.length;a++){
+	for(let a=0;a<arguments.length;a++){
 
 		if(testField(arguments[a]) && testIfValueIsNumber(arguments[a])){
-			total = total+parseFloat(arguments[a].getValue());
+			total += parseFloat(arguments[a].value);
 		}
 
 	}
