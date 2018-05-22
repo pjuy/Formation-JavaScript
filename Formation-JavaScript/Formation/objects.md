@@ -2,12 +2,15 @@
 JavaScript is object-based.
 Object = Collection of properties (key : value) and methods (functions).
 
+```javascript
 const object = {
 	key: value, //property
 	function: function(){} //method
 };
+```
 
 ## manage properties
+```javascript
 const object = {
     property1: 1,
     property2: "2nd propery"
@@ -28,8 +31,10 @@ object = {
 	}
 };
 */
+```
 
 loop on object properties
+```javascript
 var result = '';
 for (var prop in object) {
 	if (object.hasOwnProperty(prop)) {
@@ -42,9 +47,10 @@ property1:1
 property2:2nd property
 property3:["1","2","3"]
 */
-
+```
 
 ## manage methods
+```javascript
 object.property3.method = function(){
 	return 3;
 }
@@ -99,14 +105,19 @@ object = {
 	}
 };
 */
+```
 
 ## prototypes
 A prototype is the object from which an object is created.
 
+```javascript
 let newOjbect = Object.create(object);
+```
+
 object is the prototype of newObject.
 newObject and will always inherit all properties & methods from object.
 
+```javascript
 console.log(newOjbect);
 /*
 __proto__ :
@@ -138,6 +149,7 @@ newObject = {
 	property5: "newProperty"
 };
 */
+```
 
 ## create new objects
 Constructor = Class.
@@ -147,6 +159,7 @@ Start with a caps.
 No need to instanciate properties.
 Easy to create new objects.
 Need to use 'prototype' to add properties inherited by oject instances.
+```javascript
 const Character = function(attack,defense,life,type,faction){
 	this.attack = attack;
 	this.defense = defense;
@@ -162,9 +175,11 @@ console.log(heroe.name); //undefined
 
 Character.prototype.name = "unknown";
 console.log(heroe.name); //unknown
+```
 
 ### with objects
 Automatically inherit new properties added to the object
+```javascript
 const Character = {
 	attack : 1,
 	defense : 0,
@@ -186,3 +201,4 @@ heroe.defense = 1;
 heroe.life = 2;
 heroe.type = "monster";
 heroe.faction = "ennemies";
+```
