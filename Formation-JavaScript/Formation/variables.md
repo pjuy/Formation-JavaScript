@@ -5,7 +5,7 @@ First letter caps are for class : const CreateObject = {};
 Avoid unclear initials : let n1 = 1; let n2 = 2;
 
 ## Variables ECMAScript5 and < - (deprecated)
-var is not block scopded.
+var is not block scoped.
 
 ``` javascript
 //Example var
@@ -28,7 +28,7 @@ console.log(text); //update
 ```
 
 ## variables ECMAScript6 and >
-let/const are block scopded.
+let/const are block scoped.
 let can be reassign.
 const can't be.
 

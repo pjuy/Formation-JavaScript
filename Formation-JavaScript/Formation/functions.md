@@ -1,4 +1,13 @@
-# Perfect Functions
+# Functions
+let myFunction = function(){
+	//code here...
+};
+
+function myFunction(){
+
+}
+
+### return result
 
 ### 1 action, 1 function
 A function should only do one action to easily understand and update the code afterwards.
@@ -72,9 +81,9 @@ When you create a function, make sure this function is generic and accepts argum
 // Don’t :
 window.calculateField3 = function(){
     //declare variables
-var field1 = neocase.form.field(‘INTERVENTIONS_EN_COURS$VALEUR1’);
-var field2 = neocase.form.field(‘INTERVENTIONS_EN_COURS$VALEUR2’);
-var field3 = neocase.form.field(‘INTERVENTIONS_EN_COURS$VALEUR3’);
+	var field1 = neocase.form.field(‘INTERVENTIONS_EN_COURS$VALEUR1’);
+	var field2 = neocase.form.field(‘INTERVENTIONS_EN_COURS$VALEUR2’);
+	var field3 = neocase.form.field(‘INTERVENTIONS_EN_COURS$VALEUR3’);
     if(field1.getValue() !== “” && field2.getValue() !== “”){
         field3.setValue(field1.getValue()+field2.getValue());
     }

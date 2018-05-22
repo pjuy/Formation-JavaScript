@@ -21,9 +21,9 @@ This is a an [object oriented](https://developer.mozilla.org/en-US/docs/Learn/Dr
     * Map/Set/WeakMap/WeakSet
     * Promise
     * Array.prototype.find
-* ECMAScript 7 (2016 – IE11+)
+* ECMAScript 2016 – IE11+
     * Array.prototype.includes
-* ECMAScript 8 (2017)
+* ECMAScript 2017
     * async/await
 
 ## Babeljs
