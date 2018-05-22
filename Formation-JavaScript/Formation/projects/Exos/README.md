@@ -11,15 +11,19 @@
 
 # loop
 ## objects
+```javascript
 let object = {};
 for (let key in object) {
 	if (object.hasOwnProperty(key)) {
 		console.log(key + ":" + object[key]);
 	}
 }
+```
 
 ## array
+```javascript
 let array = [];
 for (a=0; a<array.length; a++>) {
 	console.log(array[a]);
 }
+```
