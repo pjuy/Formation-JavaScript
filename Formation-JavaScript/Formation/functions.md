@@ -1,19 +1,28 @@
 # Functions
 ```javascript
-//best practice, useful if function return some value
-let myFunction = function(){
-	//code here...
-};
-
 //classic way, hard to retrieve returned values
 function myFunction(){
 	//code here...
 }
 
+//BEST PRACTICE, useful if function return some value
+const myFunction = function(){
+	//code here...
+};
+
 //global way, function accessible from anywhere
 window.myFunction = function(){
 	//code here...
 };
+
+//METHODS
+myMethod : function(){
+	//code here...
+};
+this.myMethod = function(){
+	//code here...
+};
+
 ```
 
 ## 1 action, 1 function
@@ -21,7 +30,7 @@ A function should only do one action to easily understand and update the code af
 Instead of using complex functions doing multiple tasks, create several small functions doing one task.
 ``` JavaScript
 // Don’t :
-window.calculateControleAndPasteFieldValue = function(calculField1, calculField2, resultField){
+const calculateControleAndPasteFieldValue = function(calculField1, calculField2, resultField){
 	//Controle field value
 	//code here...
 
@@ -34,13 +43,13 @@ window.calculateControleAndPasteFieldValue = function(calculField1, calculField2
 calculateControleAndPasteFieldValue();
 
 // Do :
-window.calculateFieldValue = function(calculField1, calculField2){
+const calculateFieldValue = function(calculField1, calculField2){
 	//code here...
 };
-window.controleFieldValue = function(fieldValue){
+const controleFieldValue = function(fieldValue){
     //code here...
 };
-window.pasteFieldValue = function(fieldValue, pasteField){
+const pasteFieldValue = function(fieldValue, pasteField){
     //code here...
 };
 ```
@@ -86,7 +95,7 @@ We never know when a function will be useful in other cases.
 When you create a function, make sure this function is generic and accepts arguments which make it reusable rather than creating static variables inside.
 ``` JavaScript
 // Don’t :
-let calculateField3 = function(){
+const calculateField3 = function(){
     //declare variables
 	let field1 = document.getElementById("input1");
 	let field2 = document.getElementById("input2");
@@ -112,7 +121,7 @@ So make sure your variable and functions name are logical and precise.
 ```javascript
 //Don't
 /* Function to calculate annual Salary */
-let newFunction = function(field1,field2){
+const newFunction = function(field1,field2){
     //test if 'monthly salary' & 'number of months' exists
     if(field1 && field2){
         //calculate annual Salary
@@ -124,7 +133,7 @@ let newFunction = function(field1,field2){
 };
 
 //Do
-let calculateAnnualSalary = function(monthlySalary,workingMonthsNumber){
+const calculateAnnualSalary = function(monthlySalary,workingMonthsNumber){
 
 	if(monthlySalary && workingMonthsNumber){
 		let annualSalary = parseFloat(monthlySalary.value)*parseFloat(workingMonthsNumber.value);
