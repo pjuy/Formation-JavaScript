@@ -33,7 +33,7 @@ addition++; //will increment by 1
 ## Substract
 ```javascript
 let substract = number2 - number1; //expected output : -5
-substract++; //will decrement by 1
+substract--; //will decrement by 1
 ```
 
 ## Multiply
