@@ -39,4 +39,47 @@ canvasContext.drawImage(ballImage, positionX, positionY, width, height);
 
 //3-END DRAW
 canvasContext.closePath();
+
+//EXEMPLE Draw rectangle :
+canvasContext.beginPath(); //start draw on canvas
+canvasContext.rect(100, 100, 50, 20); //define position and size
+canvasContext.fillStyle = "#ff0000"; //define style
+canvasContext.fill(); //apply style
+canvasContext.closePath(); //end draw on canvas
 ```
+
+## Clear Canvas
+Will remove ALL drawn elements in this rect.
+```javascript
+canvasContext.clearRect(positionX, positionY, width, height)
+```
+
+## Update Canvas
+canvasUpdate = setTimeout(function () {
+	drawCanvas();
+}, 10);
+
+- drawCanvas
+	> clearRect
+	> draw bricks
+	> draw player
+	> draw ball
+	> draw score
+	> draw life
+	> détecter collisions
+		> avec les bricks
+			> inverser déplacement ball
+			> supprimer brick
+			> Si dernière brick : you win !
+		> avec les murs
+			> inverser déplacement ball
+			> si mur du bas, perdre 1 vie
+				> si plus de vie : game over !
+		> avec le player
+			> inverser déplacement ball
+	go.brick.drawLevel(8, 5);
+	go.ball.draw();
+	go.paddle.draw();
+	go.drawScore();
+	go.drawLife();
+	go.brick.collisionDetection(8, 5);
