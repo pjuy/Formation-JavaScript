@@ -60,20 +60,37 @@ canvasUpdate = setTimeout(function () {
 }, 10);
 
 - drawCanvas
+
 	- clearRect
+
 	- draw bricks
+
 	- draw player
+
 	- draw ball
+
 	- draw score
+
 	- draw life
+
 	- détecter collisions
+
 		- avec les bricks
+
 			- inverser déplacement ball
+
 			- supprimer brick
+
 			- Si dernière brick : you win !
+
 		- avec les murs
+
 			- inverser déplacement ball
+
 			- si mur du bas, perdre 1 vie
+
 				- si plus de vie : game over !
+
 		- avec le player
+		
 			- inverser déplacement ball
