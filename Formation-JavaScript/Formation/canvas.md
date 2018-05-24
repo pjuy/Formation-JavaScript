@@ -54,6 +54,18 @@ Will remove ALL drawn elements in this rect.
 canvasContext.clearRect(positionX, positionY, width, height)
 ```
 
+## déplacement
+let canvasObject {
+
+};
+const drawCanvas = function(canvasObject){
+	canvasObject.ball.draw();
+	canvasObject.ball.x += canvasObject.ball.moveX;
+};
+canvasUpdate = setTimeout(function () {
+	drawCanvas();
+}, 10);
+
 ## Update Canvas
 canvasUpdate = setTimeout(function () {
 	drawCanvas();
@@ -92,5 +104,5 @@ canvasUpdate = setTimeout(function () {
 				- si plus de vie : game over !
 
 		- avec le player
-		
+
 			- inverser déplacement ball
