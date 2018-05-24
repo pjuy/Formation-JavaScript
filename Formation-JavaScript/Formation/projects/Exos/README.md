@@ -79,3 +79,36 @@ parent.appendChild(enfant);
 		> reçoit 2 arguments : élément parent, un objet membre de l'équipe en paramètre
 		> appelle les différents composants en passant la propriété correspondante au membre de l'équipe
 			exemple : composantName(membreEquipe.name);
+
+# boucle pour générer les briques
+```javascript
+let game = document.getElementById("game-container").innerHTML = "<canvas id='canvas-game' class='canvas-class' width='1160' height='600'></canvas>";
+
+//canvas
+let canvas = document.getElementById("canvas-game");
+let context = canvas.getContext("2d");
+
+//bricks
+let brickWidth = 100;
+let brickHeight = 20;
+let columns = 10;
+
+//store bricks inside an array
+let bricks = [];
+for (var c = 0; c < columns; c++) {
+	bricks[c] = {
+		x:0,
+		y:0
+	};
+}
+
+//draw bricks
+for (var c = 0; c < columns; c++) {
+	context.beginPath();
+	bricks[c].x = c*(brickWidth+10);
+	context.rect(c*(brickWidth+10), 100, brickWidth, brickHeight);
+	context.fillStyle = "#236a8c";
+	context.fill();
+	context.closePath();
+}
+```
