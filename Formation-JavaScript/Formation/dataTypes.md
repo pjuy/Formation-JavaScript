@@ -123,26 +123,17 @@ let myObject = {
 
 [Objects](objects.md)
 
-## Typeof
+### test
+**/!\ Exception : **
 ```javascript
-
-//Exceptions
-
-typeof object; //return "object" too
-//solution to test an object :
-//Object(x) === x > return true only for objects;
+let dataNull = null;
 let dataObject = {};
-let dataNull = null;
-Object(dataObject) === dataObject; //return true
-Object(dataNull) === dataNull; //return false
-//solution to test null :
-let dataNull = null;
-dataNull === null; //return true
-
-typeof NaN; //return "number"
-//solution to test if NaN :
-let notNumber = NaN;
-Number.isNan(notNumber); //return true
+typeof dataNull; //return "object"
+typeof dataObject; //return "object"
 ```
 
+So always us :
+Object(dataObject) === dataObject;
+
+## Typeof
 [typeof list](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Op%C3%A9rateurs/L_op%C3%A9rateur_typeof)
