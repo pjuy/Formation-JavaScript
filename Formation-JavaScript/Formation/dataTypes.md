@@ -102,23 +102,29 @@ typeof dataUndefined; //return "undefined"
 dataUndefined === undefined; //return true
 ```
 
-## Typeof
-To detect the type of a value, you can use the typeof method. But here again we have exceptions and need to be careful.
-
+## Function
+Array are functions.
+Map are functions.
 ```javascript
-//Exemples
-typeof 5; //return "number"
+let myFunction = function(){
+	//code here...
+};
+```
 
-let number = 5;
-typeof number; //return "number"
+[Functions](functions.md)
 
-let text = "5";
-typeof text; //return "string"
+### Test
+typeof myFunction; //return function
 
-let functionName = function(){};
-typeof functionName; //return "function"
-typeof Array; //return "function"
-typeof Map; //return "function"
+## Objects
+let myObject = {
+	key: value
+};
+
+[Objects](objects.md)
+
+## Typeof
+```javascript
 
 //Exceptions
 

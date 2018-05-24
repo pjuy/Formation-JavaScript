@@ -56,11 +56,14 @@ canvasContext.clearRect(positionX, positionY, width, height)
 
 ## déplacement
 let canvasObject {
-
+	x : 
+	ball :{
+		moveX : 5
+	}
 };
 const drawCanvas = function(canvasObject){
 	canvasObject.ball.draw();
-	canvasObject.ball.x += canvasObject.ball.moveX;
+	canvasObject.x += canvasObject.ball.moveX;
 };
 canvasUpdate = setTimeout(function () {
 	drawCanvas();
