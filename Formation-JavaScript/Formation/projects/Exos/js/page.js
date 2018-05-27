@@ -152,7 +152,7 @@ const createComponentHobbies = function (parentElement, user) {
 
 	let componentValue = document.createElement("ul");
 	componentValue.setAttribute("class", "value");
-	for (h = 0; h < user.hobbies.length; h++) {
+	for (let h = 0; h < user.hobbies.length; h++) {
 		createElementLi(componentValue, user.hobbies[h]);
 	}
 	component.appendChild(componentValue);
