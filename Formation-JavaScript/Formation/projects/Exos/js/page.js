@@ -129,6 +129,16 @@ const createComponentAge = function (parentElement, user) {
 	parentElement.appendChild(component);
 };
 
+const createElementLi = function (parentElement, optionValue) {
+	let option = document.createElement("li");
+	option.setAttribute("id", "option-" + optionValue);
+
+	let optionTextNode = document.createTextNode(optionValue);
+	option.appendChild(optionTextNode);
+
+	parentElement.appendChild(option);
+};
+
 const createComponentHobbies = function (parentElement, user) {
 	let component = document.createElement("div");
 	component.setAttribute("class", "user-hobbies");
