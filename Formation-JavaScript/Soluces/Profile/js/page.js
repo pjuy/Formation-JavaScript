@@ -15,10 +15,11 @@ const TeamMember = function (firstName, lastName, life, attack, defense, photo, 
 	this.defense = defense;
 };
 
-let member1 = new TeamMember("Pierrick", "Juy", 3, 3, 3, "images/member1.png", "21/06/1986", "Product Owner", ["Fantasy", "RPG", "FF", "Magic"]);
+let member1 = new TeamMember("Pierrick", "Juy", 3, 3, 3, "images/member1.png", "21/06/1986", "Product Owner", ["Fantasy", "RPG", "Collectible Cards"]);
 let member2 = new TeamMember("Iron", "Man", 2, 4, 4, "images/member2.png", "01/01/2001", "Super Hero", ["Technology", "Money", "Weapons"]);
 let member3 = new TeamMember("Super", "Man", 5, 5, 5, "images/member3.jpg", "02/02/2002", "Super Hero", ["Sun", "Planes", "Birds"]);
 let member4 = new TeamMember("Aqua", "Man", 1, 1, 1, "images/member4.jpg", "03/03/2003", "Super Hero", ["Fish", "Trident", "Orange"]);
+//let member5 = new TeamMember("PaulNew", "Man", 1, 1, 1, "images/member1.png", "26/01/1925", "Actor", ["Movies", "Fashion", "Cars"]);
 
 let team = [member1, member2, member3, member4];
 
