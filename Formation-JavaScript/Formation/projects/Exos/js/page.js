@@ -36,6 +36,7 @@ const generateUserBox = function (parentElement, user) {
 	let userInfoParentElement = generateUserInfo(parentElement, user);
 	createComponentTeam(userInfoParentElement, user);
 	createComponentAge(userInfoParentElement, user);
+	createComponentHobbies(userInfoParentElement, user);
 };
 
 const createComponentUserInfos = function (parentElement, user) {
@@ -123,6 +124,27 @@ const createComponentAge = function (parentElement, user) {
 	let userAge = calculateAge(user.birthDate);
 	let componentValueText = document.createTextNode(userAge + " ans");
 	componentValue.appendChild(componentValueText);
+	component.appendChild(componentValue);
+
+	parentElement.appendChild(component);
+};
+
+const createComponentHobbies = function (parentElement, user) {
+	let component = document.createElement("div");
+	component.setAttribute("class", "user-hobbies");
+	component.setAttribute("id", "user-hobbies");
+
+	let componentLabel = document.createElement("span");
+	componentLabel.setAttribute("class", "label");
+	let componentLabelText = document.createTextNode("hobbies :");
+	componentLabel.appendChild(componentLabelText);
+	component.appendChild(componentLabel);
+
+	let componentValue = document.createElement("ul");
+	componentValue.setAttribute("class", "value");
+	for (h = 0; h < user.hobbies.length; h++) {
+		createElementLi(componentValue, user.hobbies[h]);
+	}
 	component.appendChild(componentValue);
 
 	parentElement.appendChild(component);
