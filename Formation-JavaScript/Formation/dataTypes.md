@@ -68,16 +68,40 @@ Number.isNan(number); //return false if type is a number
 let text = "some text";
 
 ### Methods
+[JavaScript string methods](https://www.w3schools.com/js/js_string_methods.asp)
+
 #### Search
 ```javascript
 let text = "some text";
-text.search("t");
+text.search("t"); //return 5 (allow to use regexp)
+text.indexOf("t"); //return 5 (no regexp, but faster)
+text.indexOf("t",6); //return 8 (number is search starting point)
+```
+
+#### Extract
+Accept 2 arguments :
+- starting position (included)
+- ending position (excluded)
+```javascript
+let text = "some text";
+text.slice(5); //return text
+text.slice(5,7); //return 'te'
+text.slice(-4,-2); //return 'te'
+text.substring(5,7); //return 'te' (doesn't allow negative number)
+```
+Substr accept 2 arguments :
+- starting position (included)
+- number of characters
+```javascript
+let text = "some text";
+text.substr(5,2); //return 'te'
 ```
 
 #### Replace
 ```javascript
 let text = "some text";
-text.replace("t","n");
+let newText = text.replace("t","n"); //return 'some next' (replace first occurence)
+let newText = text.replace(/t/g,"n"); //return 'some nexn' (replace all occurences with regexp)
 ```
 
 ### Test
