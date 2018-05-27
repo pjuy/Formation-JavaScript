@@ -3,19 +3,22 @@
 /*************
 Construct team
 **************/
-const TeamMember = function (firstName, lastName, photo, birthDate, team, hobbies) {
+const TeamMember = function (firstName, lastName, life, attack, defense, photo, birthDate, team, hobbies) {
 	this.firstName = firstName;
 	this.lastName = lastName;
 	this.photo = photo;
 	this.birthDate = birthDate;
 	this.hobbies = hobbies;
 	this.team = team;
+	this.life = life;
+	this.attack = attack;
+	this.defense = defense;
 };
 
-let member1 = new TeamMember("Pierrick", "Juy", "images/member1.png", "21/06/1986", "Product Owner", ["Fantasy", "RPG", "FF", "Magic"]);
-let member2 = new TeamMember("Iron", "Man", "images/member2.png", "01/01/2001", "Super Hero", ["Technology", "Money", "Weapons"]);
-let member3 = new TeamMember("Super", "Man", "images/member3.jpg", "02/02/2002", "Super Hero", ["Sun", "Planes", "Birds"]);
-let member4 = new TeamMember("Aqua", "Man", "images/member4.jpg", "03/03/2003", "Super Hero", ["Fish", "Trident", "Orange"]);
+let member1 = new TeamMember("Pierrick", "Juy", 3, 3, 3, "images/member1.png", "21/06/1986", "Product Owner", ["Fantasy", "RPG", "FF", "Magic"]);
+let member2 = new TeamMember("Iron", "Man", 2, 4, 4, "images/member2.png", "01/01/2001", "Super Hero", ["Technology", "Money", "Weapons"]);
+let member3 = new TeamMember("Super", "Man", 5, 5, 5, "images/member3.jpg", "02/02/2002", "Super Hero", ["Sun", "Planes", "Birds"]);
+let member4 = new TeamMember("Aqua", "Man", 1, 1, 1, "images/member4.jpg", "03/03/2003", "Super Hero", ["Fish", "Trident", "Orange"]);
 
 let team = [member1, member2, member3, member4];
 
@@ -49,6 +52,9 @@ const generateUserBox = function (parentElement, user) {
 	let userInfoParentElement = generateUserInfo(parentElement, user);
 	createComponentTeam(userInfoParentElement, user);
 	createComponentAge(userInfoParentElement, user);
+	createComponentLife(userInfoParentElement, user);
+	createComponentAtk(userInfoParentElement, user);
+	createComponentDef(userInfoParentElement, user);
 	createComponentHobbies(userInfoParentElement, user);
 };
 
@@ -92,24 +98,28 @@ const generateUserInfo = function (parentElement, user) {
 	return component;
 };
 
-const createComponentTeam = function (parentElement, user) {
+const createComponent = function (parentElement, key, value) {
 	let component = document.createElement("div");
-	component.setAttribute("class", "user-team");
-	component.setAttribute("id", "user-team");
+	component.setAttribute("class", "user-" + key);
+	component.setAttribute("id", "user-" + key);
 
 	let componentLabel = document.createElement("span");
 	componentLabel.setAttribute("class", "label");
-	let componentLabelText = document.createTextNode("team :");
+	let componentLabelText = document.createTextNode(key + " :");
 	componentLabel.appendChild(componentLabelText);
 	component.appendChild(componentLabel);
 
 	let componentValue = document.createElement("span");
 	componentValue.setAttribute("class", "value");
-	let componentValueText = document.createTextNode(user.team);
+	let componentValueText = document.createTextNode(value);
 	componentValue.appendChild(componentValueText);
 	component.appendChild(componentValue);
 
 	parentElement.appendChild(component);
+};
+
+const createComponentTeam = function (parentElement, user) {
+	createComponent(parentElement, "team", user.team);
 };
 
 const calculateAge = function (date) {
@@ -121,25 +131,20 @@ const calculateAge = function (date) {
 };
 
 const createComponentAge = function (parentElement, user) {
-	let component = document.createElement("div");
-	component.setAttribute("class", "user-age");
-	component.setAttribute("id", "user-age");
-
-	let componentLabel = document.createElement("span");
-	componentLabel.setAttribute("class", "label");
-	let componentLabelText = document.createTextNode("age :");
-	componentLabel.appendChild(componentLabelText);
-	component.appendChild(componentLabel);
-
-	let componentValue = document.createElement("span");
-	componentValue.setAttribute("class", "value");
-
 	let userAge = calculateAge(user.birthDate);
-	let componentValueText = document.createTextNode(userAge + " ans");
-	componentValue.appendChild(componentValueText);
-	component.appendChild(componentValue);
+	createComponent(parentElement, "age", userAge);
+};
 
-	parentElement.appendChild(component);
+const createComponentLife = function (parentElement, user) {
+	createComponent(parentElement, "life", user.life);
+};
+
+const createComponentAtk = function (parentElement, user) {
+	createComponent(parentElement, "atk", user.attack);
+};
+
+const createComponentDef = function (parentElement, user) {
+	createComponent(parentElement, "def", user.defense);
 };
 
 const createElementLi = function (optionClass, optionValue) {
