@@ -84,6 +84,8 @@ const createComponentTeam = function (parentElement, user) {
 
 	let componentLabel = document.createElement("span");
 	componentLabel.setAttribute("class", "label");
+	let componentLabelText = document.createTextNode("team :");
+	componentLabel.appendChild(componentLabelText);
 	component.appendChild(componentLabel);
 
 	let componentValue = document.createElement("span");
@@ -96,7 +98,11 @@ const createComponentTeam = function (parentElement, user) {
 };
 
 const calculateAge = function (date) {
-
+	let todayDateObject = new Date();
+	let birthDateObjet = new Date(date.split("/")[2], date.split("/")[1], date.split("/")[0]);
+	let oneYear = 1000 * 60 * 60 * 24 * 30 * 12;
+	let age = Math.trunc((birthDateObjet.getTime() - todayDateObject.getTime()) / oneYear);
+	return age;
 };
 
 const createComponentAge = function (parentElement, user) {
@@ -106,13 +112,15 @@ const createComponentAge = function (parentElement, user) {
 
 	let componentLabel = document.createElement("span");
 	componentLabel.setAttribute("class", "label");
+	let componentLabelText = document.createTextNode("age :");
+	componentLabel.appendChild(componentLabelText);
 	component.appendChild(componentLabel);
 
 	let componentValue = document.createElement("span");
 	componentValue.setAttribute("class", "value");
 
-	let age = calculateAge(user.birthDate);
-	let componentValueText = document.createTextNode(age + " ans");
+	let userAge = calculateAge(user.birthDate);
+	let componentValueText = document.createTextNode(userAge + " ans");
 	componentValue.appendChild(componentValueText);
 	component.appendChild(componentValue);
 
