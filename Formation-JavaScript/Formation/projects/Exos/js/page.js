@@ -13,23 +13,36 @@ const TeamMember = function (firstName, lastName, photo, birthDate, team, hobbie
 };
 
 let member1 = new TeamMember("Pierrick", "Juy", "images/member1.png", "21/06/1986", "Product Owner", ["Fantasy", "RPG", "FF", "Magic"]);
-let member2 = new TeamMember("Iron", "Man", "images/member1.png", "01/01/2001", "Super Hero", ["Technology", "Money", "Weapons"]);
-let member3 = new TeamMember("Super", "Man", "images/member1.png", "02/02/2002", "Super Hero", ["Sun", "Planes", "Birds"]);
-let member4 = new TeamMember("Aqua", "Man", "images/member1.png", "03/03/2003", "Super Hero", ["Fish", "Trident", "Orange"]);
+let member2 = new TeamMember("Iron", "Man", "images/member2.png", "01/01/2001", "Super Hero", ["Technology", "Money", "Weapons"]);
+let member3 = new TeamMember("Super", "Man", "images/member3.jpg", "02/02/2002", "Super Hero", ["Sun", "Planes", "Birds"]);
+let member4 = new TeamMember("Aqua", "Man", "images/member4.jpg", "03/03/2003", "Super Hero", ["Fish", "Trident", "Orange"]);
 
 let team = [member1, member2, member3, member4];
 
 /*************
-Construct Page
+CONSTRUCT PAGE
 **************/
 
 /**************
-Construct Aside
+CONSTRUCT ASIDE
 ***************/
+
+/*******************
+Construct user infos
+********************/
 const userInfoBox = document.getElementById("user-info");
 
+const clearElementHTML = function (element) {
+	element.innerHTML = "";
+	element.className = "";
+};
+
 const generateUserBox = function (parentElement, user) {
-	parentElement.classList; //???????
+	//clear user info data
+	clearElementHTML(parentElement);
+
+	//update data
+	parentElement.className += user + "-info";
 	createComponentUserName(parentElement, user);
 	createComponentUserPhoto(parentElement, user);
 
@@ -129,14 +142,15 @@ const createComponentAge = function (parentElement, user) {
 	parentElement.appendChild(component);
 };
 
-const createElementLi = function (parentElement, optionValue) {
+const createElementLi = function (optionClass, optionValue) {
 	let option = document.createElement("li");
-	option.setAttribute("id", "option-" + optionValue);
-
+	let optionId = optionValue.replace(/\s+/g, "-").toLowerCase();
+	option.setAttribute("id", "option-" + optionId);
+	option.setAttribute("class", optionClass);
 	let optionTextNode = document.createTextNode(optionValue);
 	option.appendChild(optionTextNode);
 
-	parentElement.appendChild(option);
+	return option;
 };
 
 const createComponentHobbies = function (parentElement, user) {
@@ -150,19 +164,62 @@ const createComponentHobbies = function (parentElement, user) {
 	componentLabel.appendChild(componentLabelText);
 	component.appendChild(componentLabel);
 
-	let componentValue = document.createElement("ul");
+	let componentValue = document.createElement("span");
 	componentValue.setAttribute("class", "value");
+	let componentValueUl = document.createElement("ul");
+	componentValue.appendChild(componentValueUl);
 	for (let h = 0; h < user.hobbies.length; h++) {
-		createElementLi(componentValue, user.hobbies[h]);
+		let hobbyLi = createElementLi("hobbies", user.hobbies[h]);
+		componentValueUl.appendChild(hobbyLi);
 	}
 	component.appendChild(componentValue);
 
 	parentElement.appendChild(component);
 };
 
-generateUserBox(userInfoBox, member1);
+generateUserBox(userInfoBox, team[0]);
 
 /*************
-Construct Main
+Construct Menu
+**************/
+const menuBox = document.getElementById("exo-menu");
+
+const generateMenu = function (parentElement) {
+	let menuUl = document.createElement("ul");
+	for (let t = 0; t < team.length; t++) {
+		createMenuItem(menuUl, team[t]);
+	}
+	parentElement.appendChild(menuUl);
+};
+
+const createMenuItem = function (parentElement, menuElement) {
+
+	let menuLi = createElementLi("menu", menuElement.firstName + " " + menuElement.lastName);
+
+	menuLi.addEventListener("click", function () {
+		generateUserBox(userInfoBox, menuElement);
+	});
+	menuLi.addEventListener("click", menuClickHandler);
+
+	parentElement.appendChild(menuLi);
+};
+
+const clearMenu = function (menu) {
+	for (let m = 0; m < menu.length; m++) {
+		if (menu[m].classList.contains("active")) {
+			menu[m].classList.remove("active");
+		}
+	}
+}
+const menuClickHandler = function (event) {
+	let menuElements = menuBox.getElementsByClassName("menu");
+	clearMenu(menuElements);
+	event.target.classList.add("active");
+};
+
+generateMenu(menuBox);
+
+/*************
+CONSTRUCT MAIN
 **************/
 const main = document.getElementsByTagName("main")[0];
