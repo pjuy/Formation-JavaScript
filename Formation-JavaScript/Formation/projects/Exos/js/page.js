@@ -102,7 +102,7 @@ const calculateAge = function (date) {
 	let todayDateObject = new Date();
 	let birthDateObjet = new Date(date.split("/")[2], date.split("/")[1], date.split("/")[0]);
 	let oneYear = 1000 * 60 * 60 * 24 * 30 * 12;
-	let age = Math.trunc((birthDateObjet.getTime() - todayDateObject.getTime()) / oneYear);
+	let age = Math.trunc((todayDateObject.getTime() - birthDateObjet.getTime()) / oneYear);
 	return age;
 };
 
