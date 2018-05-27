@@ -35,6 +35,7 @@ const generateUserBox = function (parentElement, user) {
 
 	let userInfoParentElement = generateUserInfo(parentElement, user);
 	createComponentTeam(userInfoParentElement, user);
+	createComponentAge(userInfoParentElement, user);
 };
 
 const createComponentUserInfos = function (parentElement, user) {
@@ -56,7 +57,7 @@ const createComponentUserName = function (parentElement, user) {
 	parentElement.appendChild(component);
 };
 
-const createComponentPhoto = function (parentElement, user) {
+const createComponentUserPhoto = function (parentElement, user) {
 	let component = document.createElement("div");
 	component.setAttribute("class", "user-photo");
 	component.setAttribute("id", "user-photo");
@@ -127,7 +128,7 @@ const createComponentAge = function (parentElement, user) {
 	parentElement.appendChild(component);
 };
 
-generateUserInfo(userInfoBox, member1);
+generateUserBox(userInfoBox, member1);
 
 /*************
 Construct Main
