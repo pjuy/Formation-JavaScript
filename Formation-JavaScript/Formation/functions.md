@@ -15,11 +15,11 @@ window.myFunction = function(){
 	//code here...
 };
 
-//METHODS
-myMethod : function(){
+//CLASS METHODS
+get getter(){
 	//code here...
 };
-this.myMethod = function(){
+set setter(){
 	//code here...
 };
 
