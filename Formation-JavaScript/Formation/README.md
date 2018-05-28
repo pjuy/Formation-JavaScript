@@ -19,8 +19,7 @@ Exercices :
 	- nom de l'équipe
 	- nom du membre
 	- date de naissance
-	- âge
-	- passions
+	- loisirs
 - Créer les membres de l'équipe via ce constructeur
 - Afficher toutes les propriétés dans la console
 
