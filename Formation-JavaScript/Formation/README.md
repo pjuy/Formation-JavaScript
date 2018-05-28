@@ -12,6 +12,18 @@ Exercices :
 	- date de naissance
 	- afficher son nom + date naissance dans la console
 
+[Class](class.md)
+
+Exercices :
+- Créer un constructeur pour les membres de l'équipe avec les propriétés :
+	- nom de l'équipe
+	- nom du membre
+	- date de naissance
+	- âge
+	- passions
+- Créer les membres de l'équipe via ce constructeur
+- Afficher toutes les propriétés dans la console
+
 [arrays](arrays.md)
 
 Exercices :
@@ -27,18 +39,6 @@ Exercices :
 - Ajouter une propriété 'âge' dans les objets membre équipe
 	- calculer l'âge à partir de la date de naissance
 	- afficher l'âge dans la console
-
-[Objects](objects.md)
-
-Exercices :
-- Créer un constructeur pour les membres de l'équipe avec les propriétés :
-	- nom de l'équipe
-	- nom du membre
-	- date de naissance
-	- âge
-	- passions
-- Créer les membres de l'équipe via ce constructeur
-- Afficher toutes les propriétés dans la console
 
 [Functions](functions.md)
 
@@ -62,8 +62,9 @@ Exercices :
 
 Exercices :
 - Créer un constructeur pour le profil utilisateur
-	- Créer 1 fonction générale pour afficher les propriétés du membre de l'équipe
+	- Créer 1 fonction générale pour afficher les propriétés d'un membre de l'équipe
 	- Créer 1 fonction par propriété (qui utilisera la fonction générale)
+	- Générer le profil pour 1 membre de l'équipe
 
 [Events](events.md)
 

@@ -38,7 +38,9 @@ console.log(ClassName.method()); //return "method"
 ```
 
 ## get/set
-Allow to call methods witout '()'
+Allow to call methods witout '()'.
+get accept no argument.
+set accept only 1 argument.
 ```javascript
 class ClassName {
 	constructor(firstName, birthDate){
@@ -48,7 +50,7 @@ class ClassName {
 		get getter(){
 			return "getter";
 		}
-		set setter(){
+		set setter(argument){
 			return "setter";
 		}
 	}
