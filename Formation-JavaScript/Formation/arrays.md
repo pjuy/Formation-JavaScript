@@ -11,6 +11,13 @@ let array = ["string",10,object{},otherArray[];
 let array = new Array("string",10,object{},otherArray[]);
 ```
 
+## loop
+```javascript
+for(let a=0; a<array.length; a++>){
+	array[a];
+}
+```
+
 ## Methods
 ### add values
 ```javascript

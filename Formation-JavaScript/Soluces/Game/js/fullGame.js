@@ -80,6 +80,185 @@ let GameObject = function (gameCanvas, gameInfo) {
 	this.timeUpdate = "";
 }
 
+/******
+ * PONG
+ ******/
+
+let GamePong = function (gameCanvas, gameInfo) {
+	//inherit from gameObject
+	GameObject.call(this, gameCanvas, gameInfo);
+	this.gameContext = gameCanvas.getContext("2d");
+	this.x = this.width / 2;
+	this.y = this.height - 30;
+	this.paddleWidth = 15;
+	this.paddleHeight = 100;
+	this.mapKeyEvent = {
+		90: false,
+		83: false,
+		38: false,
+		40: false
+	};
+};
+
+let newPongObject = "";
+
+function createGamePongObject(pongCanvas, pongInfos) {
+	newPongGame = new GamePong(pongCanvas, pongInfos);
+
+	newPongGame.ball = {
+		radius: 10,
+		moveX: 5,
+		moveY: -5,
+		draw: function () {
+			newPongGame.gameContext.beginPath();
+			let ballImage = new Image();
+			ballImage.src = "images/breakout-ball.png";
+			newPongGame.gameContext.drawImage(ballImage, newPongGame.x, newPongGame.y, newPongGame.ball.radius * 2, newPongGame.ball.radius * 2);
+			newPongGame.gameContext.closePath();
+		}
+	};
+
+	newPongGame.player1 = {
+		life: 5,
+		up: false,
+		down: false,
+		paddle: {
+			x: newPongGame.paddleWidth * 3,
+			y: newPongGame.height - (newPongGame.paddleHeight * 3),
+			draw: function () {
+				newPongGame.gameContext.beginPath();
+				newPongGame.gameContext.rect(newPongGame.player1.paddle.x, newPongGame.player1.paddle.y, newPongGame.paddleWidth, newPongGame.paddleHeight);
+				newPongGame.gameContext.fillStyle = "#00a2ff";
+				newPongGame.gameContext.fill();
+				newPongGame.gameContext.closePath();
+			}
+		},
+		drawScore: function () {
+			newPongGame.gameContext.font = "16px Arial";
+			newPongGame.gameContext.fillStyle = "#0095DD";
+			newPongGame.gameContext.fillText("Score: " + newPongGame.player1.score, 10, 20);
+		},
+		drawLife: function () {
+			newPongGame.gameContext.font = "16px Arial";
+			newPongGame.gameContext.fillStyle = "#0095DD";
+			newPongGame.gameContext.fillText("Lives: " + newPongGame.player1.life, 65, 20);
+		}
+	};
+
+	newPongGame.player2 = {
+		life: 5,
+		up: false,
+		down: false,
+		paddle: {
+			x: newPongGame.width - (newPongGame.paddleWidth * 3),
+			y: newPongGame.height - (newPongGame.paddleHeight * 3),
+			draw: function () {
+				newPongGame.gameContext.beginPath();
+				newPongGame.gameContext.rect(newPongGame.player2.paddle.x, newPongGame.player2.paddle.y, newPongGame.paddleWidth, newPongGame.paddleHeight);
+				newPongGame.gameContext.fillStyle = "#00a2ff";
+				newPongGame.gameContext.fill();
+				newPongGame.gameContext.closePath();
+			}
+		},
+		drawScore: function () {
+			newPongGame.gameContext.font = "16px Arial";
+			newPongGame.gameContext.fillStyle = "#0095DD";
+			newPongGame.gameContext.fillText("Score: " + newPongGame.player2.score, newPongGame.width - 10, 20);
+		},
+		drawLife: function () {
+			newPongGame.gameContext.font = "16px Arial";
+			newPongGame.gameContext.fillStyle = "#0095DD";
+			newPongGame.gameContext.fillText("Lives: " + newPongGame.player2.life, newPongGame.width - 65, 20);
+		}
+	};
+
+	function keyDownHandler(e) {
+
+		//Player 1
+		if (e.keyCode == 90) {
+			newPongGame.player1.up = true;
+		} else if (e.keyCode == 83) {
+			newPongGame.player1.down = true;
+		}
+
+		//Player 2
+		if (e.keyCode == 38) {
+			newPongGame.player2.up = true;
+		} else if (e.keyCode == 40) {
+			newPongGame.player2.down = true;
+		}
+
+	}
+
+	function keyUpHandler(e) {
+
+		//Player 1
+		if (e.keyCode == 90) {
+			newPongGame.player1.up = false;
+		} else if (e.keyCode == 83) {
+			newPongGame.player1.down = false;
+		}
+
+		//Player 2
+		if (e.keyCode == 38) {
+			newPongGame.player2.up = false;
+		} else if (e.keyCode == 40) {
+			newPongGame.player2.down = false;
+		}
+	}
+
+	document.addEventListener("keydown", keyDownHandler, false);
+	document.addEventListener("keyup", keyUpHandler, false);
+
+	return newPongGame;
+}
+
+function gamePongLaunch(go) {
+	go.gameContext.clearRect(0, 0, go.width, go.height);
+	go.ball.draw();
+	go.player1.paddle.draw();
+	go.player1.drawScore();
+	go.player1.drawLife();
+	go.player2.paddle.draw();
+	go.player2.drawScore();
+	go.player2.drawLife();
+
+	console.log("newPongGame.player1.down : " + newPongGame.player1.down);
+	if (go.player1.up && go.player1.paddle.y > 0) {
+		go.player1.paddle.y -= 7;
+	} else if (go.player1.down && go.player1.paddle.y + go.paddleHeight < go.height) {
+		console.log("player 1 down");
+		go.player1.paddle.y += 7;
+	}
+
+	console.log("newPongGame.player2.down : " + newPongGame.player2.down);
+	if (go.player2.up && go.player2.paddle.y > 0) {
+		go.player2.paddle.y -= 7;
+	} else if (go.player2.down && go.player2.paddle.y + go.paddleHeight < go.height) {
+		console.log("player 2 down");
+		go.player2.paddle.y += 7;
+	}
+
+	go.x += go.ball.moveX;
+	go.y += go.ball.moveY;
+	//requestAnimationFrame(gameCasseBriqueLaunch(go));
+	go.gameUpdate = setTimeout(function () {
+		gamePongLaunch(go)
+	}, 10);
+}
+
+function pongInit() {
+	//try {
+	reinitGameEnvironment();
+	let banner = createBanner("Pong", "pong");
+	let gameSetUpInfo = setUpGame("Pong", "pong", "canvas");
+	let gamePongObject = createGamePongObject(gameSetUpInfo.gameCanvas, gameSetUpInfo.gameInterfaceInfo);
+	gamePongLaunch(gamePongObject);
+	//} catch (error) {
+	//	console.log("An error occured in casseBriqueInit : " + error.msg);
+	//}
+}
+
 /******************
  * CASSE BRIQUE GAME
  *******************/
@@ -216,7 +395,6 @@ function createGameCasseBriqueObject(casseBriqueCanvas, casseBriqueInfos) {
 						let brickBottomY = b.y + newCasseBriqueGame.brick.height;
 
 						if (ballRightX > brickLeftX && ballLeftX < brickRightX && ballBottomY > brickTopY && ballTopY < brickBottomY) {
-							console.log("collision");
 							if (newCasseBriqueGame.ball.moveY < 0) {
 								if ((ballTopY + ballCenter) < brickBottomY) {
 									newCasseBriqueGame.ball.moveX = -(newCasseBriqueGame.ball.moveX);
@@ -544,6 +722,7 @@ function createMenu() {
 	try {
 		addMenuElement("Casse Brique", "casseBriqueInit()");
 		addMenuElement("Memory", "memoryInit()");
+		addMenuElement("Pong", "pongInit()");
 	} catch (error) {
 		console.log("An error occured in createMenu : " + error.msg);
 	}
@@ -558,6 +737,10 @@ function setUpGameEnvironment() {
 }
 
 //launch javascript when page is ready
+/*
+DISABLE WHILE WORKING OUT OF CONNECTION
 $(document).ready(function () {
 	setUpGameEnvironment();
 });
+*/
+setUpGameEnvironment();
