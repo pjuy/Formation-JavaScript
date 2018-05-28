@@ -37,8 +37,8 @@ object = {
 
 loop on object properties
 ```javascript
-var result = '';
-for (var prop in object) {
+let result = '';
+for (let prop in object) {
 	if (object.hasOwnProperty(prop)) {
 		result += prop + ":" + object[prop] + '\n';
 	}
