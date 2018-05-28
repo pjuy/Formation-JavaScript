@@ -1,23 +1,28 @@
 # Handle errors
 
 ## if
+```javascript
 if(condition){
 
 }
 'If' test if the parentheses conditions are true or false.
+```
 Will not show silent errors.
 
 ## try/catch
+```javascript
 try{
 	//your code
 }catch(error){
 	console.log(error.message);
 }
+```
 
 If an error occured in the 'try' section, it will be throw in the 'catch' section.
 Only the first error will be displayed.
 
 ### finally
+```javascript
 try{
 	//your code
 }catch(error){
@@ -25,10 +30,12 @@ try{
 }finally{
 	//code to execute even if errors happened
 }
+```
 
 ### nested
 If we imbricate try...catch, errors are not autmatically throw from one to another.
 
+```javascript
 try{
 	try{
 		//your code
@@ -38,7 +45,8 @@ try{
 }catch(error){
 	console.log(error.message); //only show 1st 'try' errors
 }
-
+```
+```javascript
 try{
 	try{
 		//your code
@@ -49,3 +57,4 @@ try{
 }catch(error){
 	console.log(error.message); //can show both 1st and 2nd 'try' errors
 }
+```
