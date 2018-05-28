@@ -127,20 +127,18 @@ dataUndefined === undefined; //return true
 ```
 
 ## Function
-Array are functions.
-Map are functions.
 ```javascript
-let myFunction = function(){
+const myFunction = function(){
 	//code here...
 };
 ```
-
 [Functions](functions.md)
 
 ### Test
 typeof myFunction; //return function
 
 ## Objects
+Array are objects.
 let myObject = {
 	key: value
 };
