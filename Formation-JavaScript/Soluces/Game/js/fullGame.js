@@ -92,12 +92,6 @@ let GamePong = function (gameCanvas, gameInfo) {
 	this.y = this.height - 30;
 	this.paddleWidth = 15;
 	this.paddleHeight = 100;
-	this.mapKeyEvent = {
-		90: false,
-		83: false,
-		38: false,
-		40: false
-	};
 };
 
 let newPongObject = "";
