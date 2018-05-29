@@ -1,5 +1,12 @@
 "use strict";
 
+let apps = {
+	twit: "Twit",
+	pong: "Pong",
+	breakout: "Casse Brique",
+	memory: "Memory"
+};
+
 /*************
 Construct team
 **************/
@@ -13,6 +20,7 @@ const TeamMember = function (firstName, lastName, life, attack, defense, photo, 
 	this.life = life;
 	this.attack = attack;
 	this.defense = defense;
+	this.apps = apps;
 };
 
 let member1 = new TeamMember("Pierrick", "Juy", 3, 3, 3, "images/member1.png", "21/06/1986", "Product Owner", ["Fantasy", "RPG", "Collectible Cards"]);
@@ -57,6 +65,7 @@ const generateUserBox = function (parentElement, user) {
 	createComponentAtk(userInfoParentElement, user);
 	createComponentDef(userInfoParentElement, user);
 	createComponentHobbies(userInfoParentElement, user);
+	createComponentApps(userInfoParentElement, user);
 };
 
 const createComponentUserInfos = function (parentElement, user) {
@@ -177,6 +186,49 @@ const createComponentHobbies = function (parentElement, user) {
 	for (let h = 0; h < user.hobbies.length; h++) {
 		let hobbyLi = createElementLi("hobbies", user.hobbies[h]);
 		componentValueUl.appendChild(hobbyLi);
+	}
+	component.appendChild(componentValue);
+
+	parentElement.appendChild(component);
+};
+
+const createElementLiLink = function (linkClass, linkValue) {
+	let option = document.createElement("li");
+
+	let link = document.createElement("a");
+	let linkId = linkValue.replace(/\s+/g, "-").toLowerCase();
+	link.setAttribute("id", "option-" + linkId);
+	link.setAttribute("class", linkClass);
+	let linkClick = linkValue.replace(/\s+/g, "").toLowerCase();
+	link.setAttribute("onclick", linkClick + "Init()");
+	let linkTextNode = document.createTextNode(linkValue);
+	link.appendChild(linkTextNode);
+
+	option.appendChild(link);
+
+	return option;
+};
+
+const createComponentApps = function (parentElement, user) {
+	let component = document.createElement("div");
+	component.setAttribute("class", "user-apps");
+	component.setAttribute("id", "user-apps");
+
+	let componentLabel = document.createElement("span");
+	componentLabel.setAttribute("class", "label");
+	let componentLabelText = document.createTextNode("apps :");
+	componentLabel.appendChild(componentLabelText);
+	component.appendChild(componentLabel);
+
+	let componentValue = document.createElement("span");
+	componentValue.setAttribute("class", "value");
+	let componentValueUl = document.createElement("ul");
+	componentValue.appendChild(componentValueUl);
+	for (let key in user.apps) {
+		if (user.apps.hasOwnProperty(key)) {
+			let appLi = createElementLiLink("apps", user.apps[key]);
+			componentValueUl.appendChild(appLi);
+		}
 	}
 	component.appendChild(componentValue);
 
