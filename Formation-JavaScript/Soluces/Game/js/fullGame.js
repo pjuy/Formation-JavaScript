@@ -132,6 +132,18 @@ function createGamePongObject(pongCanvas, pongInfos) {
 				newPongGame.gameContext.fillStyle = "#00a2ff";
 				newPongGame.gameContext.fill();
 				newPongGame.gameContext.closePath();
+			},
+			move: function () {
+				if (newPongGame.player1.up && newPongGame.player1.paddle.y > 0) {
+					newPongGame.player1.paddle.y -= 7;
+				} else if (newPongGame.player1.down && newPongGame.player1.paddle.y + newPongGame.paddleHeight < newPongGame.height) {
+					newPongGame.player1.paddle.y += 7;
+				}
+			},
+			collision: function () {
+				if (newPongGame.y > newPongGame.player1.paddle.y && newPongGame.y - newPongGame.ball.radius < newPongGame.player1.paddle.y + newPongGame.paddleHeight && newPongGame.x - newPongGame.ball.radius < newPongGame.player1.paddle.x + newPongGame.paddleWidth) {
+					newPongGame.ball.moveX = -(newPongGame.ball.moveX);
+				}
 			}
 		},
 		drawScore: function () {
@@ -160,6 +172,18 @@ function createGamePongObject(pongCanvas, pongInfos) {
 				newPongGame.gameContext.fillStyle = "#00a2ff";
 				newPongGame.gameContext.fill();
 				newPongGame.gameContext.closePath();
+			},
+			move: function () {
+				if (newPongGame.player2.up && newPongGame.player2.paddle.y > 0) {
+					newPongGame.player2.paddle.y -= 7;
+				} else if (newPongGame.player2.down && newPongGame.player2.paddle.y + newPongGame.paddleHeight < newPongGame.height) {
+					newPongGame.player2.paddle.y += 7;
+				}
+			},
+			collision: function () {
+				if (newPongGame.y > newPongGame.player2.paddle.y && newPongGame.y - newPongGame.ball.radius < newPongGame.player2.paddle.y + newPongGame.paddleHeight && newPongGame.x + newPongGame.ball.radius > newPongGame.player2.paddle.x - newPongGame.paddleWidth) {
+					newPongGame.ball.moveX = -(newPongGame.ball.moveX);
+				}
 			}
 		},
 		drawScore: function () {
@@ -171,6 +195,40 @@ function createGamePongObject(pongCanvas, pongInfos) {
 			newPongGame.gameContext.font = "16px Arial";
 			newPongGame.gameContext.fillStyle = "#0095DD";
 			newPongGame.gameContext.fillText("Lives: " + newPongGame.player2.life, newPongGame.width - 150, 20);
+		}
+	};
+
+	newPongGame.wallCollision = function () {
+		if (newPongGame.x + newPongGame.ball.moveX > newPongGame.width - newPongGame.ball.radius) {
+			newPongGame.player2.life--;
+			if (newPongGame.player2.life <= 0) {
+				newPongGame.player1.score += 100;
+				alert("Player 1 win !");
+				clearInterval(newPongGame.gameUpdate);
+				pongInit();
+			} else {
+				newPongGame.player1.score += 10;
+				newPongGame.x = newPongGame.width / 2;
+				newPongGame.y = newPongGame.height - 30;
+				newPongGame.ball.moveX = -5;
+				newPongGame.ball.moveY = -5;
+			}
+		} else if (newPongGame.x + newPongGame.ball.moveX < newPongGame.ball.radius) {
+			newPongGame.player1.life--;
+			if (newPongGame.player1.life <= 0) {
+				newPongGame.player2.score += 100;
+				alert("Player 2 win !");
+				clearInterval(newPongGame.gameUpdate);
+				pongInit();
+			} else {
+				newPongGame.player2.score += 10;
+				newPongGame.x = newPongGame.width / 2;
+				newPongGame.y = newPongGame.height - 30;
+				newPongGame.ball.moveX = 5;
+				newPongGame.ball.moveY = -5;
+			}
+		} else if (newPongGame.y + newPongGame.ball.moveY < newPongGame.ball.radius || newPongGame.y + newPongGame.ball.moveY > newPongGame.height - newPongGame.ball.radius) {
+			newPongGame.ball.moveY = -(newPongGame.ball.moveY);
 		}
 	};
 
@@ -224,52 +282,11 @@ function gamePongLaunch(go) {
 	go.player2.paddle.draw();
 	go.player2.drawScore();
 	go.player2.drawLife();
-
-	if (go.x + go.ball.moveX > go.width - go.ball.radius) {
-		go.player2.life--;
-		if (go.player2.life <= 0) {
-			go.player1.score += 100;
-			alert("Player 1 win !");
-			clearInterval(go.gameUpdate);
-			pongInit();
-		} else {
-			go.player1.score += 10;
-			go.x = go.width / 2;
-			go.y = go.height - 30;
-			go.ball.moveX = -5;
-			go.ball.moveY = -5;
-		}
-	} else if (go.x + go.ball.moveX < go.ball.radius) {
-		go.player1.life--;
-		if (go.player1.life <= 0) {
-			go.player2.score += 100;
-			alert("Player 2 win !");
-			clearInterval(go.gameUpdate);
-			pongInit();
-		} else {
-			go.player2.score += 10;
-			go.x = go.width / 2;
-			go.y = go.height - 30;
-			go.ball.moveX = 5;
-			go.ball.moveY = -5;
-		}
-	} else if (go.y + go.ball.moveY < go.ball.radius || go.y + go.ball.moveY > go.height - go.ball.radius) {
-		go.ball.moveY = -(go.ball.moveY);
-	}
-
-	if (go.player1.up && go.player1.paddle.y > 0) {
-		go.player1.paddle.y -= 7;
-	} else if (go.player1.down && go.player1.paddle.y + go.paddleHeight < go.height) {
-		go.player1.paddle.y += 7;
-	}
-
-	if (go.player2.up && go.player2.paddle.y > 0) {
-		go.player2.paddle.y -= 7;
-	} else if (go.player2.down && go.player2.paddle.y + go.paddleHeight < go.height) {
-		go.player2.paddle.y += 7;
-	}
-
-
+	go.wallCollision();
+	go.player1.paddle.move();
+	go.player2.paddle.move();
+	go.player1.paddle.collision();
+	go.player2.paddle.collision();
 
 	go.x += go.ball.moveX;
 	go.y += go.ball.moveY;
