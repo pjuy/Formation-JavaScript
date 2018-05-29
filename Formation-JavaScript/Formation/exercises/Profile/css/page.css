@@ -149,3 +149,8 @@ main {
 	float: left;
 	min-height: 100%;
 }
+
+canvas {
+	background: white;
+	border: solid 1px black;
+}

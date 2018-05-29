@@ -81,6 +81,107 @@ let GameObject = function (gameCanvas, gameInfo) {
 }
 
 /******
+ * TEST
+ ******/
+
+let GameTest = function (gameCanvas, gameInfo) {
+	//inherit from gameObject
+	GameObject.call(this, gameCanvas, gameInfo);
+	this.gameContext = gameCanvas.getContext("2d");
+	this.x = 0;
+	this.y = 0;
+	this.blockWidth = 55;
+	this.blockHeight = 55;
+	this.mapping = [];
+	this.level1 = [
+		"WWWWWWWWWWWWWWWWWWWWW",
+		"WRRBBBBBBBBBBBBBBBRRW",
+		"WRWBWBWBWBWBWBWBWBWRW",
+		"WBBBBRRBRBRBRBRRBBBBW",
+		"WBWBWRWRWRWRWRWRWBWBW",
+		"WBBBBBRBRBRBRBRBBBBBW",
+		"WBWBWRWRWRWRWRWRWBWBW",
+		"WBBBBRRBRBRBRBRRBBBBW",
+		"WRWBWBWBWBWBWBWBWBWRW",
+		"WRRBBBBBBBBBBBBBBBRRW",
+		"WWWWWWWWWWWWWWWWWWWWW"
+	];
+};
+
+let newTestObject = "";
+
+function createGameTestObject(testCanvas, testInfos) {
+	newTestGame = new GameTest(testCanvas, testInfos);
+
+	newTestGame.level = {
+		init: function (level) {
+			for (let r = 0; r < level.length; r++) {
+				newTestGame.mapping[r] = [];
+				for (let c = 0; c < level[r].length; c++) {
+					newTestGame.mapping[r][c] = {
+						x: 0,
+						y: 0,
+						status: 1
+					}
+					if (level[r][c] === "W") {
+						newTestGame.mapping[r][c].block = "wall";
+					} else if (level[r][c] === "R") {
+						newTestGame.mapping[r][c].block = "road";
+					} else if (level[r][c] === "B") {
+						newTestGame.mapping[r][c].block = "brick";
+					}
+				}
+			}
+		},
+		draw: function (level) {
+			for (let r = 0; r < level.length; r++) {
+				for (let c = 0; c < level[r].length; c++) {
+					let blockX = c * newTestGame.blockWidth;
+					let blockY = r * newTestGame.blockHeight;
+					newTestGame.mapping[r][c].x = blockX;
+					newTestGame.mapping[r][c].y = blockY;
+					newTestGame.gameContext.beginPath();
+					newTestGame.gameContext.rect(blockX, blockY, newTestGame.blockWidth, newTestGame.blockHeight);
+					if (newTestGame.mapping[r][c].block == "road") {
+						newTestGame.gameContext.fillStyle = "#27AE60";
+					} else if (newTestGame.mapping[r][c].block == "wall") {
+						newTestGame.gameContext.fillStyle = "#808B96";
+					} else if (newTestGame.mapping[r][c].block == "brick") {
+						newTestGame.gameContext.fillStyle = "#D35400";
+						newTestGame.gameContext.strokeStyle = "#943126";
+						newTestGame.gameContext.stroke();
+					}
+					newTestGame.gameContext.fill();
+					newTestGame.gameContext.closePath();
+				}
+			}
+		}
+	};
+
+	return newTestGame;
+}
+
+function gameTestLaunch(go) {
+	go.gameContext.clearRect(0, 0, go.width, go.height);
+
+	go.level.init(go.level1);
+	go.level.draw(go.level1);
+
+}
+
+function testInit() {
+	//try {
+	reinitGameEnvironment();
+	let banner = createBanner("Test", "test");
+	let gameSetUpInfo = setUpGame("Test", "test", "canvas");
+	let gameTestObject = createGameTestObject(gameSetUpInfo.gameCanvas, gameSetUpInfo.gameInterfaceInfo);
+	gameTestLaunch(gameTestObject);
+	//} catch (error) {
+	//	console.log("An error occured in casseBriqueInit : " + error.msg);
+	//}
+}
+
+/******
  * PONG
  ******/
 
@@ -766,6 +867,7 @@ function createMenu() {
 		addMenuElement("Casse Brique", "casseBriqueInit()");
 		addMenuElement("Memory", "memoryInit()");
 		addMenuElement("Pong", "pongInit()");
+		addMenuElement("Test", "testInit()");
 	} catch (error) {
 		console.log("An error occured in createMenu : " + error.msg);
 	}
