@@ -131,3 +131,9 @@ body {
 	color: var(--tertiary-color);
 	font-size: var(--title-font-size);
 }
+
+/* BOMBERMAN */
+
+canvas#interface-test {
+	background: url("../images/bomberman-bg-grass.png") repeat;
+}

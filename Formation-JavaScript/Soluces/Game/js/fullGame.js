@@ -80,9 +80,9 @@ let GameObject = function (gameCanvas, gameInfo) {
 	this.timeUpdate = "";
 }
 
-/******
- * TEST
- ******/
+/***********
+ * BOMBERMAN
+ ***********/
 
 let GameTest = function (gameCanvas, gameInfo) {
 	//inherit from gameObject
@@ -92,26 +92,208 @@ let GameTest = function (gameCanvas, gameInfo) {
 	this.y = 0;
 	this.blockWidth = 55;
 	this.blockHeight = 55;
+	this.bombs = [];
 	this.mapping = [];
 	this.level1 = [
 		"WWWWWWWWWWWWWWWWWWWWW",
-		"WRRBBBBBBBBBBBBBBBRRW",
-		"WRWBWBWBWBWBWBWBWBWRW",
-		"WBBBBRRBRBRBRBRRBBBBW",
-		"WBWBWRWRWRWRWRWRWBWBW",
-		"WBBBBBRBRBRBRBRBBBBBW",
-		"WBWBWRWRWRWRWRWRWBWBW",
-		"WBBBBRRBRBRBRBRRBBBBW",
-		"WRWBWBWBWBWBWBWBWBWRW",
-		"WRRBBBBBBBBBBBBBBBRRW",
+		"W__BBBBBBBBBBBBBBB__W",
+		"W_WBWBWBWBWBWBWBWBW_W",
+		"WBBBB__B_B_B_B__BBBBW",
+		"WBWBW_W_W_W_W_W_WBWBW",
+		"WBBBBB_B_B_B_B_BBBBBW",
+		"WBWBW_W_W_W_W_W_WBWBW",
+		"WBBBB__B_B_B_B__BBBBW",
+		"W_WBWBWBWBWBWBWBWBW_W",
+		"W__BBBBBBBBBBBBBBB__W",
 		"WWWWWWWWWWWWWWWWWWWWW"
 	];
 };
 
-let newTestObject = "";
+let newTestGame = "";
 
 function createGameTestObject(testCanvas, testInfos) {
 	newTestGame = new GameTest(testCanvas, testInfos);
+
+	newTestGame.bomberman = {
+		x: 85,
+		y: 85,
+		radius: 15,
+		up: false,
+		right: false,
+		down: false,
+		left: false,
+		speedUp: 2,
+		speedRight: 2,
+		speedDown: 2,
+		speedLeft: 2,
+		draw: function () {
+			newTestGame.gameContext.beginPath();
+			newTestGame.gameContext.arc(newTestGame.bomberman.x, newTestGame.bomberman.y, newTestGame.bomberman.radius, 0, Math.PI * 2);
+			newTestGame.gameContext.fillStyle = "white";
+			newTestGame.gameContext.fill();
+			newTestGame.gameContext.closePath();
+		},
+		move: function () {
+			if (newTestGame.bomberman.up) {
+				newTestGame.bomberman.y -= newTestGame.bomberman.speedUp;
+			} else if (newTestGame.bomberman.right) {
+				newTestGame.bomberman.x += newTestGame.bomberman.speedRight;
+			} else if (newTestGame.bomberman.down) {
+				newTestGame.bomberman.y += newTestGame.bomberman.speedDown;
+			} else if (newTestGame.bomberman.left) {
+				newTestGame.bomberman.x -= newTestGame.bomberman.speedLeft;
+			}
+		},
+		collision: function () {
+			for (let r = 0; r < newTestGame.mapping.length; r++) {
+				for (let c = 0; c < newTestGame.mapping[r].length; c++) {
+					let wall = newTestGame.mapping[r][c];
+					let wallTop = wall.y;
+					let wallRight = wall.x + newTestGame.blockWidth;
+					let wallBottom = wall.y + newTestGame.blockHeight;
+					let wallLeft = wall.x;
+
+					let bombermanPos = newTestGame.bomberman;
+					let bombermanTop = bombermanPos.y - bombermanPos.radius;
+					let bombermanRight = bombermanPos.x + bombermanPos.radius;
+					let bombermanBottom = bombermanPos.y + bombermanPos.radius;
+					let bombermanLeft = bombermanPos.x - bombermanPos.radius;
+					if (wall.status === 1) {
+						if (bombermanTop < wallBottom && bombermanRight > wallLeft && bombermanBottom > wallTop && bombermanLeft < wallRight) {
+							if (newTestGame.bomberman.up) {
+								newTestGame.bomberman.speedUp = 0;
+							} else if (newTestGame.bomberman.right) {
+								newTestGame.bomberman.speedRight = 0;
+							} else if (newTestGame.bomberman.down) {
+								newTestGame.bomberman.speedDown = 0;
+							} else if (newTestGame.bomberman.left) {
+								newTestGame.bomberman.speedLeft = 0;
+							}
+						}
+					}
+				}
+			}
+		},
+		bomb: {
+			radius: 25,
+			range: 1,
+			stock: 1,
+			launch: function (bombX, bombY) {
+				if (newTestGame.bomberman.bomb.stock > 0) {
+					newTestGame.bomberman.bomb.stock--;
+					newTestGame.bombs.push({
+						x: bombX,
+						y: bombY,
+						timer: 300
+					});
+				}
+			},
+			draw: function () {
+				for (b = 0; b < newTestGame.bombs.length; b++) {
+					newTestGame.bombs[b].timer--;
+					if (newTestGame.bombs[b].timer > 0) {
+						newTestGame.gameContext.beginPath();
+						newTestGame.gameContext.arc(newTestGame.bombs[b].x, newTestGame.bombs[b].y, newTestGame.bomberman.bomb.radius, 0, Math.PI * 2);
+						newTestGame.gameContext.fillStyle = "black";
+						newTestGame.gameContext.fill();
+						newTestGame.gameContext.closePath();
+					} else {
+						newTestGame.bomberman.bomb.explode(newTestGame.bombs[b]);
+						break;
+					}
+				}
+			},
+			explode: function (bombItem) {
+				console.log("BOOM!!!");
+				let bombPosX = parseInt(bombItem.x / newTestGame.blockWidth);
+				let bombPosY = parseInt(bombItem.y / newTestGame.blockHeight);
+				for (r = 0; r < newTestGame.bomberman.bomb.range; r++) {
+					let incrementBombPos = r + 1;
+					//top
+					if (newTestGame.mapping[bombPosY - incrementBombPos][bombPosX].block === "brick" && newTestGame.mapping[bombPosY - incrementBombPos][bombPosX].status === 1) {
+						newTestGame.mapping[bombPosY - incrementBombPos][bombPosX].status = 0;
+					}
+					//right
+					if (newTestGame.mapping[bombPosY][bombPosX + incrementBombPos].block === "brick" && newTestGame.mapping[bombPosY][bombPosX + incrementBombPos].status === 1) {
+						newTestGame.mapping[bombPosY][bombPosX + incrementBombPos].status = 0;
+					}
+					//bottom
+					if (newTestGame.mapping[bombPosY + incrementBombPos][bombPosX].block === "brick" && newTestGame.mapping[bombPosY + incrementBombPos][bombPosX].status === 1) {
+						newTestGame.mapping[bombPosY + incrementBombPos][bombPosX].status = 0;
+					}
+					//left
+					if (newTestGame.mapping[bombPosY][bombPosX - incrementBombPos].block === "brick" && newTestGame.mapping[bombPosY][bombPosX - incrementBombPos].status === 1) {
+						newTestGame.mapping[bombPosY][bombPosX - incrementBombPos].status = 0;
+					}
+				}
+				newTestGame.bombs.splice(bombItem, 1);
+				newTestGame.bomberman.bomb.stock++;
+			}
+		}
+	};
+
+	newTestGame.bonus = {
+		bag: ["bonusSpeedUp", "bonusPowerUp", "bonusStockUp"],
+		bonusRate: 2,
+		bonusArray: [],
+		init: function () {
+			for (b = 0; b < newTestGame.bonus.bonusRate; b++) {
+				newTestGame.bonus.bonusArray = newTestGame.bonus.bonusArray.concat(newTestGame.bonus.bag);
+			}
+			newTestGame.bonus.bonusArray.sort(function () {
+				return 0.5 - Math.random();
+			});
+			return newTestGame.bonus.bonusArray;
+		},
+		speedUp: function (character) {
+			character.speedUp++;
+			character.speedRight++;
+			character.speedDown++;
+			character.speedLeft++;
+		},
+		powerUp: function (character) {
+			character.bomb.range++;
+		},
+		stockUp: function (character) {
+			character.bomb.stock++;
+		}
+	};
+
+	window.addEventListener("keydown", function (e) {
+		if (e.keyCode === 38) {
+			newTestGame.bomberman.up = true;
+		}
+		if (e.keyCode === 39) {
+			newTestGame.bomberman.right = true;
+		}
+		if (e.keyCode === 40) {
+			newTestGame.bomberman.down = true;
+		}
+		if (e.keyCode === 37) {
+			newTestGame.bomberman.left = true;
+		}
+	});
+	window.addEventListener("keyup", function (e) {
+		if (e.keyCode === 38) {
+			newTestGame.bomberman.up = false;
+			newTestGame.bomberman.speedUp = 2;
+		}
+		if (e.keyCode === 39) {
+			newTestGame.bomberman.right = false;
+			newTestGame.bomberman.speedRight = 2;
+		}
+		if (e.keyCode === 40) {
+			newTestGame.bomberman.down = false;
+			newTestGame.bomberman.speedDown = 2;
+		}
+		if (e.keyCode === 37) {
+			newTestGame.bomberman.left = false;
+			newTestGame.bomberman.speedLeft = 2;
+		}
+		if (e.keyCode === 32) {
+			newTestGame.bomberman.bomb.launch(newTestGame.bomberman.x, newTestGame.bomberman.y);
+		}
+	});
 
 	newTestGame.level = {
 		init: function (level) {
@@ -120,15 +302,21 @@ function createGameTestObject(testCanvas, testInfos) {
 				for (let c = 0; c < level[r].length; c++) {
 					newTestGame.mapping[r][c] = {
 						x: 0,
-						y: 0,
-						status: 1
+						y: 0
 					}
 					if (level[r][c] === "W") {
 						newTestGame.mapping[r][c].block = "wall";
-					} else if (level[r][c] === "R") {
+						newTestGame.mapping[r][c].status = 1;
+					} else if (level[r][c] === "_") {
 						newTestGame.mapping[r][c].block = "road";
+						newTestGame.mapping[r][c].status = 0;
 					} else if (level[r][c] === "B") {
 						newTestGame.mapping[r][c].block = "brick";
+						newTestGame.mapping[r][c].status = 1;
+						if (newTestGame.bonus.bonusArray.length > 0 && Math.random() > 0.3333) {
+							newTestGame.mapping[r][c].bonus = newTestGame.bonus.bonusArray[0];
+							newTestGame.bonus.bonusArray.splice(0, 1);
+						}
 					}
 				}
 			}
@@ -141,17 +329,17 @@ function createGameTestObject(testCanvas, testInfos) {
 					newTestGame.mapping[r][c].x = blockX;
 					newTestGame.mapping[r][c].y = blockY;
 					newTestGame.gameContext.beginPath();
-					newTestGame.gameContext.rect(blockX, blockY, newTestGame.blockWidth, newTestGame.blockHeight);
-					if (newTestGame.mapping[r][c].block == "road") {
-						newTestGame.gameContext.fillStyle = "#27AE60";
-					} else if (newTestGame.mapping[r][c].block == "wall") {
+					if (newTestGame.mapping[r][c].block == "wall") {
+						newTestGame.gameContext.rect(blockX, blockY, newTestGame.blockWidth, newTestGame.blockHeight);
 						newTestGame.gameContext.fillStyle = "#808B96";
-					} else if (newTestGame.mapping[r][c].block == "brick") {
-						newTestGame.gameContext.fillStyle = "#D35400";
-						newTestGame.gameContext.strokeStyle = "#943126";
+						newTestGame.gameContext.fill();
+					} else if (newTestGame.mapping[r][c].block === "brick" && newTestGame.mapping[r][c].status === 1) {
+						newTestGame.gameContext.rect(blockX, blockY, newTestGame.blockWidth, newTestGame.blockHeight);
+						newTestGame.gameContext.fillStyle = "brown";
+						newTestGame.gameContext.fill();
+						newTestGame.gameContext.strokeStyle = "dark brown";
 						newTestGame.gameContext.stroke();
 					}
-					newTestGame.gameContext.fill();
 					newTestGame.gameContext.closePath();
 				}
 			}
@@ -164,10 +352,17 @@ function createGameTestObject(testCanvas, testInfos) {
 function gameTestLaunch(go) {
 	go.gameContext.clearRect(0, 0, go.width, go.height);
 
-	go.level.init(go.level1);
 	go.level.draw(go.level1);
+	go.bomberman.draw();
+	go.bomberman.bomb.draw();
+	go.bomberman.move();
+	go.bomberman.collision();
 
+	go.gameUpdate = setTimeout(function () {
+		gameTestLaunch(go);
+	}, 10);
 }
+
 
 function testInit() {
 	//try {
@@ -175,6 +370,9 @@ function testInit() {
 	let banner = createBanner("Test", "test");
 	let gameSetUpInfo = setUpGame("Test", "test", "canvas");
 	let gameTestObject = createGameTestObject(gameSetUpInfo.gameCanvas, gameSetUpInfo.gameInterfaceInfo);
+	gameTestObject.bonus.init();
+	gameTestObject.level.init(gameTestObject.level1);
+
 	gameTestLaunch(gameTestObject);
 	//} catch (error) {
 	//	console.log("An error occured in casseBriqueInit : " + error.msg);
